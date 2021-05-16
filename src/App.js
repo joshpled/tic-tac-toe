@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Game from "./components/Game";
-import { Container } from "react-bootstrap";
-
 const style = {
-  height: '100vh'
-};
-
-const App = () => (
-  <Container style={style} className="d-flex align-items-center" >
-    <Game />
-  </Container>
-);
+  marginTop: '-5em',
+}
+function App() {
+  const [newGame, setNewGame] = useState(false);
+  return (
+    <div style={style}>
+      <Game />
+    </div>
+  );
+}
 
 export default App;

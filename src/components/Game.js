@@ -1,46 +1,40 @@
-import React, { useState } from 'react';
-import { calculateWinner } from '../helpers';
-import Board from './Board';
+import React, { useState } from "react";
+import { calculateWinner } from "../helpers";
+import Board from "./Board";
 
-const styles = {
-    width: '200px',
-    margin: '20px auto',
+const parentStyle = {
+  display: "flex",
+  flexDirection: "column",
+  flexWrap: "nowrap",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "100vh",
 };
 
 const Game = () => {
-    const [board, setBoard] = useState(Array(9).fill(null));
-    const [xIsNext, setXisNext] = useState(true);
-    const winner = calculateWinner(board);
+  const [board, setBoard] = useState(Array(9).fill(null));
+  const [xIsNext, setXisNext] = useState(true);
+  const winner = calculateWinner(board);
 
-    const handleClick = i => {
-        const boardCopy = [...board];
-        // If user click an occupied square or if game is won, return
-        if (winner || boardCopy[i]) return;
-        // Put an X or an O in the clicked square
-        boardCopy[i] = xIsNext ? 'X' : 'O';
-        setBoard(boardCopy);
-        setXisNext(!xIsNext);
-    }
+  const handleClick = (i) => {
+    const boardCopy = [...board];
+    if (winner || boardCopy[i]) return;
+    boardCopy[i] = xIsNext ? "X" : "O";
+    setBoard(boardCopy);
+    setXisNext(!xIsNext);
+  };
 
-    const jumpTo = () => {
+  const renderMoves = () => <button onClick={() => setBoard(Array(9).fill(null))}>Start Game</button>;
 
-    }
-
-    const renderMoves = () => (
-        <button onClick={() => setBoard(Array(9).fill(null))}>
-            Start Game
-        </button>
-    )
-
-    return (
-        <>
-            <Board squares={board} onClick={handleClick} />
-            <div style={styles}>
-                <p>{winner ? 'Winner: ' + winner : 'Next Player: ' + (xIsNext ? 'X' : 'O')}</p>
-                {renderMoves()}
-            </div>
-        </>
-    )
-}
+  return (
+    <div style={parentStyle}>
+      <Board squares={board} onClick={handleClick} />
+      <div>
+        <p>{winner ? "Winner: " + winner : "Next Player: " + (xIsNext ? "X" : "O")}</p>
+        {renderMoves()}
+      </div>
+    </div>
+  );
+};
 
 export default Game;
